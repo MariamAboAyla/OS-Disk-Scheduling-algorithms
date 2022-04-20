@@ -1,15 +1,10 @@
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-	// write your code here
+        // write your code here
 
 //        ArrayList<Integer> queue = new ArrayList<> (  );
 //        //[98, 183, 37, 122, 14, 124, 65, 67]
@@ -25,7 +20,7 @@ public class Main {
         //int numOfProcesses = reader.nextInt ();
         //ArrayList<Integer> processesQueue = new ArrayList<> ( numOfProcesses );
         //while (reader.hasNext ( )){
-          //  processesQueue.add ( reader.nextInt ( ) );
+        //  processesQueue.add ( reader.nextInt ( ) );
         //}
 
         //reader.close ();
@@ -35,7 +30,7 @@ public class Main {
         //firstAlgo.displayInfo ();
         //System.out.println (" ---------------------------------------- " );
 
-        ArrayList<Integer> processesQueue = new ArrayList<> (8);
+        ArrayList<Integer> processesQueue = new ArrayList<>(8);
         processesQueue.add(38);
         processesQueue.add(180);
         processesQueue.add(130);
@@ -45,10 +40,10 @@ public class Main {
         processesQueue.add(190);
         processesQueue.add(90);
         processesQueue.add(150);
-        Optimized secondAlgo = new Optimized ( 9,processesQueue);
-        secondAlgo.Execute ();
-        secondAlgo.displayInfo ();
-        System.out.println (" ---------------------------------------- " );
+        Optimized secondAlgo = new Optimized(9, processesQueue);
+        secondAlgo.Execute();
+        secondAlgo.displayInfo();
+        System.out.println(" ---------------------------------------- ");
 
         //String direction = "right";
         //int sectorNum = 200;
