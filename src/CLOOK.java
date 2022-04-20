@@ -1,116 +1,67 @@
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class CLOOK {
 
-    private ArrayList<Integer> processesQueue;
-    private int numOfProcesses;
+    final private ArrayList<Integer> processesQueue;
+    final private int numOfProcesses;
     private int seekTime;
-    private ArrayList<Integer> orderOfExcuting;
-    private int initial;
-    private String direction;
-    private int sectorsNumber;
+    final private ArrayList<Integer> orderOfExecuting;
+    final private int initial;
+    final private String direction;
 
-
-    public CLOOK( int initial , String direction , int sectorsNumber  , int numOfProcesses , ArrayList<Integer> queue ) {
+    public CLOOK( int initial , String direction , int numOfProcesses , ArrayList<Integer> queue ) {
         this.initial = initial;
         this.numOfProcesses = numOfProcesses;
-        orderOfExcuting = new ArrayList<> ( numOfProcesses );
+        orderOfExecuting = new ArrayList<> ( numOfProcesses );
         this.processesQueue = queue;
         this.direction = direction;
-        this.sectorsNumber = sectorsNumber - 1;
         seekTime = 0;
-
     }
 
-    // to get the first index from "right" direction to the current head
-    private int findStartIndexToRight ( ) {
-
-        for (int i = 0; i < numOfProcesses; i++) {
-            if ( processesQueue.get ( i ) >= initial ) {
-                return i;
-            }
+    public void Execute ( ) {
+        if ( processesQueue.isEmpty () ) {
+            System.out.println ( "No Processes to be executed !" );
+            return;
         }
-        return numOfProcesses - 1;
-
-    }
-
-    // to get the first index from "left" direction to the current head
-    private int findStartIndexToLeft ( ) {
-        for (int i = numOfProcesses - 1; i >= 0; i--) {
-            if ( processesQueue.get ( i ) <= initial ) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    public void Excute ( ) {
-
+        processesQueue.add(initial);
         Collections.sort ( processesQueue );
-
-        if ( direction.equalsIgnoreCase ( "left" ) ) {
-
-            int index = findStartIndexToLeft ( );
-
-            for (int i = index; i >= 0; i--) {
-                orderOfExcuting.add ( processesQueue.get ( i ) );
-                seekTime += Math.abs ( initial - processesQueue.get ( i ) );
-                initial = processesQueue.get ( i );
+        int index=0;
+        for(int i=0;i<processesQueue.size();i++) {
+            if(processesQueue.get(i)==initial){
+                index=i;
+                break;
             }
-
-            /*
-            // reaches the last sector
-            orderOfExcuting.add ( 0 );
-            // initial - 0
-            // '0' is the start of the sector
-            seekTime += Math.abs ( initial );
-            initial = 0;
-            */
-
-            for (int i = 0; i <= index + 1; i++) {
-                orderOfExcuting.add ( processesQueue.get ( i ) );
-                seekTime += Math.abs ( initial - processesQueue.get ( i ) );
-                initial = processesQueue.get ( i );
+        }
+        if(direction.equalsIgnoreCase("left")){
+            for(int i=index;i>0;i--){
+                seekTime+=(Math.abs(processesQueue.get(i) - processesQueue.get(i-1)));
+                orderOfExecuting.add(processesQueue.get(i-1));
             }
+            for(int i=numOfProcesses;i>index;i--){
+                seekTime+= (i==numOfProcesses?(Math.abs(processesQueue.get(i) - processesQueue.get(0))):(Math.abs(processesQueue.get(i) - processesQueue.get(i+1))));
+                orderOfExecuting.add(processesQueue.get(i));
+            }
+        }
 
-
-        } else if ( direction.equalsIgnoreCase ( "right" ) ) {
-
-            int index = findStartIndexToRight ( );
-
-            // to add all processes to the right
+        else if(direction.equalsIgnoreCase("right")) {
             for (int i = index; i < numOfProcesses; i++) {
-                orderOfExcuting.add ( processesQueue.get ( i ) );
-                seekTime += Math.abs ( initial - processesQueue.get ( i ) );
-                initial = processesQueue.get ( i );
+                seekTime += (Math.abs(processesQueue.get(i) - processesQueue.get(i + 1)));
+                orderOfExecuting.add(processesQueue.get(i+1));
             }
-
-            // was written to be simulating teh result the same as the doctor
-            /*
-            // to go to the head again
-            orderOfExcuting.add ( 0 );
-            seekTime += initial;
-            initial = 0;
-            */
-
-            // to reverse to get the first process on the opposite direction
-            for (int i = 0; i <= index - 1; i++) {
-                orderOfExcuting.add ( processesQueue.get ( i ) );
-                seekTime += Math.abs ( initial - processesQueue.get ( i ) );
-                initial = processesQueue.get ( i );
-
+            for (int i = 0 ; i <index ; i++) {
+                seekTime+= ((i==0?(Math.abs(processesQueue.get(i) - processesQueue.get(numOfProcesses))):(Math.abs(processesQueue.get(i) - processesQueue.get(i-1)))));
+                orderOfExecuting.add(processesQueue.get(i));
             }
-
-        } else {
+        }
+        else {
             System.out.println ( "Please choose a valid direction!" );
         }
-
     }
 
     // to display the 'seek time' and sequence of executing the processes
     public void displayInfo ( ) {
-        System.out.println ( " --- CSCAN algorithm --- " );
+        System.out.println ( " --- CLOOK algorithm --- " );
         if ( numOfProcesses == 0 ) {
             System.out.println ( "The number of processes is : " + numOfProcesses );
             System.out.println ( "The order of the processes of " + direction + " direction " + " is 0. " );
@@ -119,13 +70,11 @@ public class CLOOK {
 
         System.out.println ( "The number of processes is : " + numOfProcesses );
         System.out.println ( "The order of the processes of direction " + direction + " is: " );
-        for (int i = 1; i <= orderOfExcuting.size (); i++) {
-            System.out.println ( "Process " + i + " is " + orderOfExcuting.get ( i - 1 ) );
+        for (int i = 1; i <= orderOfExecuting.size (); i++) {
+            System.out.println ( "Process " + i + " is " + orderOfExecuting.get ( i - 1 ) );
         }
         System.out.println ( "The total head movement = " + seekTime + " Cylinders" );
 
     }
-
-
-
 }
+
