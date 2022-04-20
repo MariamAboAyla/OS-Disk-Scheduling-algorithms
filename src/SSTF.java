@@ -1,81 +1,79 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Queue;
+import java.util.*;
 
 public class SSTF {
 
-    private ArrayList<Integer> processesQueue, newQueue;
-    private int numOfProcesses;
+    final private ArrayList<Integer> processesQueue;
+    final private int numOfProcesses;
     private int seekTime;
-    private ArrayList<Integer> orderOfExcuting;
-    private int initial;
+    final private ArrayList<Integer> orderOfExecuting;
+    final private int initial;
 
     public SSTF ( int initial , int numOfProcesses , ArrayList<Integer> queue ) {
         this.initial = initial;
         this.numOfProcesses = numOfProcesses;
-        orderOfExcuting = new ArrayList<> ( numOfProcesses );
-        newQueue = queue;
+        orderOfExecuting = new ArrayList<> (numOfProcesses);
         processesQueue = queue;
         seekTime = 0;
-
     }
 
-    private int findClosestProcess(int current){
-
-        int closestProcess = 500; // as default scetor is of 0:199, so 500 is an impossible to get number as if marked false
-        int index = -1;
-
-        // get the nearest one then send it (could send it by index)
-        for (int i = 0; i< numOfProcesses; i++) {
-            if ( newQueue.get ( i ) == current  )
-                continue;
-            int difference = Math.abs ( newQueue.get ( i) - current );
-            if(difference < closestProcess){
-                closestProcess =  difference;
-                index = processesQueue.indexOf ( newQueue.get(i) );
-            }
-
+    public void Execute () {
+        if ( processesQueue.isEmpty () ) {
+            System.out.println ( "No Processes to be executed !" );
+            return;
         }
-
-        return index;
-
-    }
-
-    public void Excute(){
-
-
-        for(int i=0; i<numOfProcesses; i++){
-            // search for the closest process to be executed
-            int processIndex = findClosestProcess(initial);
-            if(processIndex == -1){
-                System.out.println ("not found!" );
+        processesQueue.add(initial);
+        Collections.sort(processesQueue);
+        int index = 0;
+        for(int i=0;i<processesQueue.size();i++)
+        {
+            if(processesQueue.get(i)==initial){
+                index=i;
                 break;
             }
-            if(newQueue.contains ( initial )) {
-                int index = newQueue.indexOf ( initial );
-                newQueue.set ( index, 500 );
-            }
-            Integer process = processesQueue.get ( processIndex );
-            orderOfExcuting.add ( process );
-            seekTime += Math.abs ( initial - process );
-            initial =  process;
-
         }
-
+        int ptr1=index-1;
+        int ptr2=index+1;
+        while (ptr1!= -1 || ptr2!=(numOfProcesses+1)){
+            if(ptr1== -1){
+                orderOfExecuting.add(processesQueue.get(ptr2));
+                seekTime+=(Math.abs ( processesQueue.get(index) - processesQueue.get(ptr2)));
+                index=ptr2;
+                ptr2=index+1;
+            }
+            else if(ptr2==(numOfProcesses+1)){
+                orderOfExecuting.add(processesQueue.get(ptr1));
+                seekTime+=(Math.abs ( processesQueue.get(index) - processesQueue.get(ptr1)));
+                index=ptr1;
+                ptr1=index-1;
+            }
+            else{
+                int ans1=(Math.abs ( processesQueue.get(index) - processesQueue.get(ptr1)));
+                int ans2=(Math.abs ( processesQueue.get(index) - processesQueue.get(ptr2)));
+                if(ans1<ans2){
+                    seekTime+=ans1;
+                    orderOfExecuting.add(processesQueue.get(ptr1));
+                    index=ptr1;
+                    ptr1=index-1;
+                }
+                else{
+                    seekTime+=ans2;
+                    orderOfExecuting.add(processesQueue.get(ptr2));
+                    index=ptr2;
+                    ptr2=index+1;
+                }
+            }
+        }
     }
 
     public void displayInfo ( ) {
         System.out.println (" --- SSTF 'Shortest Seek Time First' algorithm --- " );
         System.out.println ( "The number of processes is : " + numOfProcesses );
         System.out.println ( "The order of the processes is: " );
-        // make conidiiton till 'numOfProcesses' /////////
 
-        for (int i = 0; i < orderOfExcuting.size (); i++) {
-            System.out.println ( "Process " + (i+1) + " is " + orderOfExcuting.get ( i ) );
+        for (int i = 0; i < orderOfExecuting.size (); i++) {
+            System.out.println ( "Process " + (i+1) + " is " + orderOfExecuting.get ( i ) );
         }
         System.out.println ("The total head movement = "+seekTime+" Cylinders" );
-
     }
-
-
 }
