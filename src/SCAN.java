@@ -6,6 +6,7 @@ public class SCAN {
     final private ArrayList<Integer> processesQueue;
     final private int numOfProcesses;
     final private ArrayList<Integer> orderOfExecuting;
+    final private ArrayList<Integer> orderOfExecuting_Gui;
     final private int initial;
     final private String direction;
     final private int sectorsNumber;
@@ -16,6 +17,7 @@ public class SCAN {
         this.initial = initial;
         this.numOfProcesses = numOfProcesses;
         orderOfExecuting = new ArrayList<>(numOfProcesses);
+        orderOfExecuting_Gui = new ArrayList<>(numOfProcesses);
         this.processesQueue = queue;
         this.direction = direction;
         this.sectorsNumber = sectorsNumber - 1;
@@ -27,6 +29,7 @@ public class SCAN {
             System.out.println("No Processes to be executed !");
             return;
         }
+        orderOfExecuting_Gui.add(initial);
         processesQueue.add(initial);
         Collections.sort(processesQueue);
         int index = 0;
@@ -40,21 +43,27 @@ public class SCAN {
             for (int i = index; i > 0; i--) {
                 seekTime += (Math.abs(processesQueue.get(i) - processesQueue.get(i - 1)));
                 orderOfExecuting.add(processesQueue.get(i - 1));
+                orderOfExecuting_Gui.add(processesQueue.get(i-1));
             }
+            orderOfExecuting_Gui.add(0);
             seekTime += processesQueue.get(0);
             for (int i = index + 1; i < processesQueue.size(); i++) {
                 seekTime += ((i == (index + 1) ? processesQueue.get(i) : (Math.abs(processesQueue.get(i) - processesQueue.get(i - 1)))));
                 orderOfExecuting.add(processesQueue.get(i));
+                orderOfExecuting_Gui.add(processesQueue.get(i));
             }
         } else if (direction.equalsIgnoreCase("right")) {
             for (int i = index; i < processesQueue.size() - 1; i++) {
                 seekTime += (Math.abs(processesQueue.get(i) - processesQueue.get(i + 1)));
                 orderOfExecuting.add(processesQueue.get(i + 1));
+                orderOfExecuting_Gui.add(processesQueue.get(i+1));
             }
+            orderOfExecuting_Gui.add(sectorsNumber);
             seekTime += (Math.abs(processesQueue.get(numOfProcesses) - (sectorsNumber)));
             for (int i = index - 1; i >= 0; i--) {
                 seekTime += ((i == (index - 1) ? (Math.abs(processesQueue.get(i) - (sectorsNumber))) : (Math.abs(processesQueue.get(i) - processesQueue.get(i + 1)))));
                 orderOfExecuting.add(processesQueue.get(i));
+                orderOfExecuting_Gui.add(processesQueue.get(i));
             }
         } else {
             System.out.println("Please choose a valid direction!");
@@ -88,5 +97,9 @@ public class SCAN {
 
     public ArrayList<Integer> getOrderOfExecuting() {
         return orderOfExecuting;
+    }
+
+    public ArrayList<Integer> getOrderOfExecuting_Gui() {
+        return orderOfExecuting_Gui;
     }
 }

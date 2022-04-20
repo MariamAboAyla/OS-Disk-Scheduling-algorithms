@@ -4,6 +4,7 @@ public class FCFS {
     final private ArrayList<Integer> processesQueue;
     final private int numOfProcesses;
     final private ArrayList<Integer> orderOfExecuting;
+    final private ArrayList<Integer> orderOfExecuting_Gui;
     private int seekTime;
     private int initial;
 
@@ -11,6 +12,7 @@ public class FCFS {
         this.initial = initial;
         this.numOfProcesses = numOfProcesses;
         orderOfExecuting = new ArrayList<>(numOfProcesses);
+        orderOfExecuting_Gui = new ArrayList<>(numOfProcesses);
         seekTime = 0;
         processesQueue = new ArrayList<>(queue);
     }
@@ -20,8 +22,10 @@ public class FCFS {
             System.out.println("No Processes to be executed !");
             return;
         }
+        orderOfExecuting_Gui.add(initial);
         for (int process : processesQueue) {
             seekTime += (Math.abs(initial - process));
+            orderOfExecuting_Gui.add(process);
             orderOfExecuting.add(process);
             initial = process;
         }
@@ -47,6 +51,10 @@ public class FCFS {
 
     public ArrayList<Integer> getOrderOfExecuting() {
         return orderOfExecuting;
+    }
+
+    public ArrayList<Integer> getOrderOfExecuting_Gui() {
+        return orderOfExecuting_Gui;
     }
 
 

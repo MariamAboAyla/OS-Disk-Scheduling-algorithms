@@ -6,6 +6,7 @@ public class SSTF {
     final private ArrayList<Integer> processesQueue;
     final private int numOfProcesses;
     final private ArrayList<Integer> orderOfExecuting;
+    final private ArrayList<Integer> orderOfExecuting_Gui;
     final private int initial;
     private int seekTime;
 
@@ -13,6 +14,7 @@ public class SSTF {
         this.initial = initial;
         this.numOfProcesses = numOfProcesses;
         orderOfExecuting = new ArrayList<>(numOfProcesses);
+        orderOfExecuting_Gui = new ArrayList<>(numOfProcesses);
         processesQueue = queue;
         seekTime = 0;
     }
@@ -31,16 +33,19 @@ public class SSTF {
                 break;
             }
         }
+        orderOfExecuting_Gui.add(initial);
         int ptr1 = index - 1;
         int ptr2 = index + 1;
         while (ptr1 != -1 || ptr2 != (numOfProcesses + 1)) {
             if (ptr1 == -1) {
                 orderOfExecuting.add(processesQueue.get(ptr2));
+                orderOfExecuting_Gui.add(processesQueue.get(ptr2));
                 seekTime += (Math.abs(processesQueue.get(index) - processesQueue.get(ptr2)));
                 index = ptr2;
                 ptr2 = index + 1;
             } else if (ptr2 == (numOfProcesses + 1)) {
                 orderOfExecuting.add(processesQueue.get(ptr1));
+                orderOfExecuting_Gui.add(processesQueue.get(ptr1));
                 seekTime += (Math.abs(processesQueue.get(index) - processesQueue.get(ptr1)));
                 index = ptr1;
                 ptr1 = index - 1;
@@ -50,11 +55,13 @@ public class SSTF {
                 if (ans1 < ans2) {
                     seekTime += ans1;
                     orderOfExecuting.add(processesQueue.get(ptr1));
+                    orderOfExecuting_Gui.add(processesQueue.get(ptr1));
                     index = ptr1;
                     ptr1 = index - 1;
                 } else {
                     seekTime += ans2;
                     orderOfExecuting.add(processesQueue.get(ptr2));
+                    orderOfExecuting_Gui.add(processesQueue.get(ptr2));
                     index = ptr2;
                     ptr2 = index + 1;
                 }
@@ -83,6 +90,10 @@ public class SSTF {
 
     public ArrayList<Integer> getOrderOfExecuting() {
         return orderOfExecuting;
+    }
+
+    public ArrayList<Integer> getOrderOfExecuting_Gui() {
+        return orderOfExecuting_Gui;
     }
 
 

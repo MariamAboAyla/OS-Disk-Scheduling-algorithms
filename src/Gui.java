@@ -124,7 +124,7 @@ public class Gui extends JFrame {
                         // FCFS
                         FCFS fcfs = new FCFS(init, result.size(), result);
                         fcfs.Execute();
-                        Graph lineComponent = new Graph(fcfs.getOrderOfExecuting(), "FCFS");
+                        Graph lineComponent = new Graph(fcfs.getOrderOfExecuting_Gui(), "FCFS");
                         JOptionPane.showMessageDialog(null, lineComponent);
                     }
                 };
@@ -142,7 +142,7 @@ public class Gui extends JFrame {
                         result = utility1.Simulator(processesTextField.getText().trim(), init);
                         SSTF sstf = new SSTF(init, result.size(), result);
                         sstf.Execute();
-                        Graph lineComponent = new Graph(sstf.getOrderOfExecuting(), "SJF");
+                        Graph lineComponent = new Graph(sstf.getOrderOfExecuting_Gui(), "SJF");
                         JOptionPane.showMessageDialog(null, lineComponent);
                     }
                 };
@@ -160,7 +160,7 @@ public class Gui extends JFrame {
                         result = utility1.Simulator(processesTextField.getText().trim(), init);
                         SCAN scan = new SCAN(init, direction, sectorNum, result.size(), result);
                         scan.Execute();
-                        Graph lineComponent = new Graph(scan.getOrderOfExecuting(), "SCAN");
+                        Graph lineComponent = new Graph(scan.getOrderOfExecuting_Gui(), "SCAN");
                         JOptionPane.showMessageDialog(null, lineComponent);
                     }
                 };
@@ -178,7 +178,7 @@ public class Gui extends JFrame {
                         result = utility1.Simulator(processesTextField.getText().trim(), init);
                         CSCAN cscan = new CSCAN(init, direction, sectorNum, result.size(), result);
                         cscan.Execute();
-                        Graph lineComponent = new Graph(cscan.getOrderOfExecuting(), "CSCAN");
+                        Graph lineComponent = new Graph(cscan.getOrderOfExecuting_Gui(), "CSCAN");
                         JOptionPane.showMessageDialog(null, lineComponent);
                     }
                 };
@@ -196,7 +196,7 @@ public class Gui extends JFrame {
                         result = utility1.Simulator(processesTextField.getText().trim(), init);
                         LOOK look = new LOOK(init, direction, result.size(), result);
                         look.Execute();
-                        Graph lineComponent = new Graph(look.getOrderOfExecuting(), "LOOK");
+                        Graph lineComponent = new Graph(look.getOrderOfExecuting_Gui(), "LOOK");
                         JOptionPane.showMessageDialog(null, lineComponent);
                     }
                 };
@@ -214,7 +214,7 @@ public class Gui extends JFrame {
                         result = utility1.Simulator(processesTextField.getText().trim(), init);
                         CLOOK clook = new CLOOK(init, direction, result.size(), result);
                         clook.Execute();
-                        Graph lineComponent = new Graph(clook.getOrderOfExecuting(), "CLOOK");
+                        Graph lineComponent = new Graph(clook.getOrderOfExecuting_Gui(), "CLOOK");
                         JOptionPane.showMessageDialog(null, lineComponent);
                     }
                 };
@@ -232,7 +232,7 @@ public class Gui extends JFrame {
                         result = utility1.Simulator(processesTextField.getText().trim(), 0);
                         Optimized optimized = new Optimized(result.size(), result);
                         optimized.Execute();
-                        Graph lineComponent = new Graph(optimized.getOrderOfExecuting(), "Optimized");
+                        Graph lineComponent = new Graph(optimized.getOrderOfExecuting_Gui(), "Optimized");
                         JOptionPane.showMessageDialog(null, lineComponent);
                     }
                 };

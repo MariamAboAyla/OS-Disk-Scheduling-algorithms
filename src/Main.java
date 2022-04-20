@@ -30,20 +30,20 @@ public class Main {
         //firstAlgo.displayInfo ();
         //System.out.println (" ---------------------------------------- " );
 
-        ArrayList<Integer> processesQueue = new ArrayList<>(8);
-        processesQueue.add(38);
-        processesQueue.add(180);
-        processesQueue.add(130);
-        processesQueue.add(10);
-        processesQueue.add(50);
-        processesQueue.add(15);
-        processesQueue.add(190);
-        processesQueue.add(90);
-        processesQueue.add(150);
-        Optimized secondAlgo = new Optimized(9, processesQueue);
-        secondAlgo.Execute();
-        secondAlgo.displayInfo();
-        System.out.println(" ---------------------------------------- ");
+//        ArrayList<Integer> processesQueue = new ArrayList<>(8);
+//        processesQueue.add(38);
+//        processesQueue.add(180);
+//        processesQueue.add(130);
+//        processesQueue.add(10);
+//        processesQueue.add(50);
+//        processesQueue.add(15);
+//        processesQueue.add(190);
+//        processesQueue.add(90);
+//        processesQueue.add(150);
+//        Optimized secondAlgo = new Optimized(9, processesQueue);
+//        secondAlgo.Execute();
+//        secondAlgo.displayInfo();
+//        System.out.println(" ---------------------------------------- ");
 
         //String direction = "right";
         //int sectorNum = 200;
@@ -76,3 +76,7 @@ public class Main {
 
     }
 }
+
+
+// 38 180 130 10 50 15 190 90 150
+// 120

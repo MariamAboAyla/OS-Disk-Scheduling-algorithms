@@ -6,6 +6,7 @@ public class CSCAN {
     final private ArrayList<Integer> processesQueue;
     final private int numOfProcesses;
     final private ArrayList<Integer> orderOfExecuting;
+    final private ArrayList<Integer> orderOfExecuting_Gui;
     final private int initial;
     final private String direction;
     final private int sectorsNumber;
@@ -15,6 +16,7 @@ public class CSCAN {
         this.initial = initial;
         this.numOfProcesses = numOfProcesses;
         orderOfExecuting = new ArrayList<>(numOfProcesses);
+        orderOfExecuting_Gui = new ArrayList<>(numOfProcesses);
         this.processesQueue = queue;
         this.direction = direction;
         this.sectorsNumber = sectorsNumber - 1;
@@ -35,29 +37,38 @@ public class CSCAN {
                 break;
             }
         }
+        orderOfExecuting_Gui.add(initial);
         if (direction.equalsIgnoreCase("left")) {
             for (int i = index; i > 0; i--) {
                 seekTime += (Math.abs(processesQueue.get(i) - processesQueue.get(i - 1)));
                 orderOfExecuting.add(processesQueue.get(i - 1));
+                orderOfExecuting_Gui.add(processesQueue.get(i - 1));
             }
+            orderOfExecuting_Gui.add(0);
+            orderOfExecuting_Gui.add(sectorsNumber);
             seekTime += processesQueue.get(0);
             seekTime += sectorsNumber;
             seekTime += (Math.abs(processesQueue.get(numOfProcesses) - sectorsNumber));
             for (int i = numOfProcesses; i > index; i--) {
                 seekTime += (i == index + 1 ? 0 : (Math.abs(processesQueue.get(i) - processesQueue.get(i - 1))));
                 orderOfExecuting.add(processesQueue.get(i));
+                orderOfExecuting_Gui.add(processesQueue.get(i));
             }
         } else if (direction.equalsIgnoreCase("right")) {
             for (int i = index; i < numOfProcesses; i++) {
                 seekTime += (Math.abs(processesQueue.get(i) - processesQueue.get(i + 1)));
                 orderOfExecuting.add(processesQueue.get(i + 1));
+                orderOfExecuting_Gui.add(processesQueue.get(i + 1));
             }
+            orderOfExecuting_Gui.add(sectorsNumber);
+            orderOfExecuting_Gui.add(0);
             seekTime += Math.abs(processesQueue.get(numOfProcesses) - sectorsNumber);
             seekTime += sectorsNumber;
             seekTime += processesQueue.get(0);
             for (int i = 0; i < index; i++) {
                 seekTime += (i == index - 1 ? 0 : (Math.abs(processesQueue.get(i) - processesQueue.get(i + 1))));
                 orderOfExecuting.add(processesQueue.get(i));
+                orderOfExecuting_Gui.add(processesQueue.get(i));
             }
         } else {
             System.out.println("Please choose a valid direction!");
@@ -90,6 +101,10 @@ public class CSCAN {
 
     public ArrayList<Integer> getOrderOfExecuting() {
         return orderOfExecuting;
+    }
+
+    public ArrayList<Integer> getOrderOfExecuting_Gui() {
+        return orderOfExecuting_Gui;
     }
 
 

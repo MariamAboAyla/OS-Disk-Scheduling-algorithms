@@ -6,6 +6,7 @@ public class CLOOK {
     final private ArrayList<Integer> processesQueue;
     final private int numOfProcesses;
     final private ArrayList<Integer> orderOfExecuting;
+    final private ArrayList<Integer> orderOfExecuting_Gui;
     final private int initial;
     final private String direction;
     private int seekTime;
@@ -14,6 +15,7 @@ public class CLOOK {
         this.initial = initial;
         this.numOfProcesses = numOfProcesses;
         orderOfExecuting = new ArrayList<>(numOfProcesses);
+        orderOfExecuting_Gui = new ArrayList<>(numOfProcesses);
         this.processesQueue = queue;
         this.direction = direction;
         seekTime = 0;
@@ -24,6 +26,7 @@ public class CLOOK {
             System.out.println("No Processes to be executed !");
             return;
         }
+        orderOfExecuting_Gui.add(initial);
         processesQueue.add(initial);
         Collections.sort(processesQueue);
         int index = 0;
@@ -37,19 +40,23 @@ public class CLOOK {
             for (int i = index; i > 0; i--) {
                 seekTime += (Math.abs(processesQueue.get(i) - processesQueue.get(i - 1)));
                 orderOfExecuting.add(processesQueue.get(i - 1));
+                orderOfExecuting_Gui.add(processesQueue.get(i - 1));
             }
             for (int i = numOfProcesses; i > index; i--) {
                 seekTime += (i == numOfProcesses ? (Math.abs(processesQueue.get(i) - processesQueue.get(0))) : (Math.abs(processesQueue.get(i) - processesQueue.get(i + 1))));
                 orderOfExecuting.add(processesQueue.get(i));
+                orderOfExecuting_Gui.add(processesQueue.get(i));
             }
         } else if (direction.equalsIgnoreCase("right")) {
             for (int i = index; i < numOfProcesses; i++) {
                 seekTime += (Math.abs(processesQueue.get(i) - processesQueue.get(i + 1)));
                 orderOfExecuting.add(processesQueue.get(i + 1));
+                orderOfExecuting_Gui.add(processesQueue.get(i + 1));
             }
             for (int i = 0; i < index; i++) {
                 seekTime += ((i == 0 ? (Math.abs(processesQueue.get(i) - processesQueue.get(numOfProcesses))) : (Math.abs(processesQueue.get(i) - processesQueue.get(i - 1)))));
                 orderOfExecuting.add(processesQueue.get(i));
+                orderOfExecuting_Gui.add(processesQueue.get(i));
             }
         } else {
             System.out.println("Please choose a valid direction!");
@@ -86,6 +93,9 @@ public class CLOOK {
         return orderOfExecuting;
     }
 
+    public ArrayList<Integer> getOrderOfExecuting_Gui() {
+        return orderOfExecuting_Gui;
+    }
 
 }
 

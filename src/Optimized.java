@@ -5,11 +5,13 @@ public class Optimized {
     final private ArrayList<Integer> processesQueue;
     final private int numOfProcesses;
     final private ArrayList<Integer> orderOfExecuting;
+    final private ArrayList<Integer> orderOfExecuting_Gui;
     private int seekTime;
 
     public Optimized(int numOfProcesses, ArrayList<Integer> queue) {
         this.numOfProcesses = numOfProcesses;
         orderOfExecuting = new ArrayList<>(numOfProcesses);
+        orderOfExecuting_Gui = new ArrayList<>(numOfProcesses);
         this.processesQueue = queue;
         seekTime = 0;
     }
@@ -19,11 +21,13 @@ public class Optimized {
             System.out.println("No Processes to be executed !");
             return;
         }
+        orderOfExecuting_Gui.add(0);
         Collections.sort(processesQueue);
         int pre_process = 0;
         for (int process : processesQueue) {
             seekTime += (seekTime == 0 ? process : process - pre_process);
             orderOfExecuting.add(process);
+            orderOfExecuting_Gui.add(process);
             pre_process = process;
         }
     }
@@ -50,5 +54,8 @@ public class Optimized {
         return orderOfExecuting;
     }
 
+    public ArrayList<Integer> getOrderOfExecuting_Gui() {
+        return orderOfExecuting_Gui;
+    }
 
 }
