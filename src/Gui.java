@@ -52,7 +52,7 @@ public class Gui extends JFrame {
                     //FCFS
                     FCFS fcfs = new FCFS(init,result.size(),result);
                     fcfs.Execute();
-                    textField3.setText(fcfs.getOrderOfExecuting().toString());
+                    textField3.setText(fcfs.getOrderOfExecuting_Gui().toString());
                     textField4.setText(String.valueOf(fcfs.getSeekTime()));
 
                     Utility utility2 = new Utility();
@@ -60,7 +60,7 @@ public class Gui extends JFrame {
                     //SSTF
                     SSTF sstf = new SSTF(init,result.size(),result);
                     sstf.Execute();
-                    textField5.setText(sstf.getOrderOfExecuting().toString());
+                    textField5.setText(sstf.getOrderOfExecuting_Gui().toString());
                     textField6.setText(String.valueOf(sstf.getSeekTime()));
 
 
@@ -69,7 +69,7 @@ public class Gui extends JFrame {
                     //SCAN
                     SCAN scan = new SCAN(init,direction,sectorNum,result.size(),result);
                     scan.Execute();
-                    textField7.setText(scan.getOrderOfExecuting().toString());
+                    textField7.setText(scan.getOrderOfExecuting_Gui().toString());
                     textField8.setText(String.valueOf(scan.getSeekTime()));
 
                     Utility utility4 = new Utility();
@@ -77,7 +77,7 @@ public class Gui extends JFrame {
                     //CSCAN
                     CSCAN cscan = new CSCAN(init,direction,sectorNum,result.size(),result);
                     cscan.Execute();
-                    textField9.setText(cscan.getOrderOfExecuting().toString());
+                    textField9.setText(cscan.getOrderOfExecuting_Gui().toString());
                     textField10.setText(String.valueOf(cscan.getSeekTime()));
 
 
@@ -86,7 +86,7 @@ public class Gui extends JFrame {
                     //LOOK
                     LOOK look = new LOOK(init,direction,result.size(),result);
                     look.Execute();
-                    textField11.setText(look.getOrderOfExecuting().toString());
+                    textField11.setText(look.getOrderOfExecuting_Gui().toString());
                     textField12.setText(String.valueOf(look.getSeekTime()));
 
                     Utility utility3 = new Utility();
@@ -94,7 +94,7 @@ public class Gui extends JFrame {
                     //CLOOK
                     CLOOK clook = new CLOOK(init,direction,result.size(),result);
                     clook.Execute();
-                    textField13.setText(clook.getOrderOfExecuting().toString());
+                    textField13.setText(clook.getOrderOfExecuting_Gui().toString());
                     textField14.setText(String.valueOf(clook.getSeekTime()));
 
 
@@ -103,7 +103,7 @@ public class Gui extends JFrame {
                     //Optimized
                     Optimized opt = new Optimized(result.size(),result);
                     opt.Execute();
-                    textField15.setText(opt.getOrderOfExecuting().toString());
+                    textField15.setText(opt.getOrderOfExecuting_Gui().toString());
                     textField16.setText(String.valueOf(opt.getSeekTime()));
 
 
